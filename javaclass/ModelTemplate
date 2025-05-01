@@ -1,0 +1,15 @@
+package {{ApplicationDirectory}}.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import java.util.List;
+
+@Data
+@Entity
+public class {{ClassName}} {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+{{Fields}}
+}

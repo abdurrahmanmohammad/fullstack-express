@@ -1,0 +1,51 @@
+package {{ApplicationDirectory}}.service;
+
+import {{ApplicationDirectory}}.model.{{ModelName}};
+import {{ApplicationDirectory}}.repository.{{ModelName}}Repository;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class {{ModelName}}Service {
+
+  @Autowired 
+  private {{ModelName}}Repository {{modelName}}Repository;
+
+  // Create
+  public {{ModelName}} create{{ModelName}}({{ModelName}} {{modelName}}) {
+    return {{modelName}}Repository.save({{modelName}});
+  }
+
+  // Read all
+  public List<{{ModelName}}> getAll{{ModelName}}s() {
+    return {{modelName}}Repository.findAll();
+  }
+
+  // Read by ID
+  public Optional<{{ModelName}}> get{{ModelName}}ById(Long id) {
+    return {{modelName}}Repository.findById(id);
+  }
+
+  // Update
+  public {{ModelName}} update{{ModelName}}(Long id, {{ModelName}} updated{{ModelName}}) {
+    return {{modelName}}Repository
+        .findById(id)
+        .map(
+            {{modelName}} -> {
+              {{FieldUpdateStatements}}
+              return {{modelName}}Repository.save({{modelName}});
+            })
+        .orElse(null);
+  }
+
+  // Delete
+  public boolean delete{{ModelName}}(Long id) {
+    if ({{modelName}}Repository.existsById(id)) {
+      {{modelName}}Repository.deleteById(id);
+      return true;
+    }
+    return false;
+  }
+}

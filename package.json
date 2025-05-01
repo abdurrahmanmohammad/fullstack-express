@@ -1,0 +1,22 @@
+{
+  "name": "fullstack-express",
+  "version": "1.0.0",
+  "main": "compiler.ts",
+  "scripts": {
+    "test": "tsc && node dist/compiler.js input.json",
+    "start": "tsc && node dist/compiler.js input.json",
+    "dev": "tsc && node dist/compiler.js input.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "-": "^0.0.1",
+    "save-dev": "^0.0.1-security",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3"
+  }
+}

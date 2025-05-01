@@ -1,0 +1,36 @@
+[
+  {
+    "object": "Setup",
+    "app_name": "demo",
+    "port": 8080,
+    "db_url": "jdbc:mysql://localhost:3306/demo",
+    "db_username": "root",
+    "db_password": "2045Canary",
+    "java_version": 24
+  },
+  {
+    "object": "Course",
+    "fields": {
+      "title": "String",
+      "description": "String"
+    }
+  },
+  {
+    "object": "Student",
+    "fields": {
+      "firstName": "String",
+      "lastName": "String",
+      "email": "String",
+      "courses": "List<Course>"
+    }
+  },
+  {
+    "object": "Teacher",
+    "fields": {
+      "firstName": "String",
+      "lastName": "String",
+      "email": "String",
+      "courses": "List<Course>"
+    }
+  }
+]
