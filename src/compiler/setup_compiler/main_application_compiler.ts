@@ -7,23 +7,33 @@ import {
   APPLICATION_DIR,
 } from "../../constants";
 
-export function compileMainApplication(setupConfig: any) {
-  const demoAppTemplatePath = path.join(TEMPLATE_DIR, "TemplateApplication");
-  let demoAppTemplate = fs.readFileSync(demoAppTemplatePath, "utf8");
+function readTemplate(fileName: string): string {
+  const filePath = path.join(TEMPLATE_DIR, fileName);
+  return fs.readFileSync(filePath, "utf8");
+}
 
-  demoAppTemplate = demoAppTemplate
+function writeOutput(fileName: string, content: string) {
+  const outputPath = path.join(APPLICATION_FILES_DIR, fileName);
+  fs.writeFileSync(outputPath, content, "utf8");
+  console.log(`Generated: ${outputPath}`);
+}
+
+export function compileMainApplication(setupConfig: any) {
+  const appNameCapitalized =
+    setupConfig.app_name.charAt(0).toUpperCase() +
+    setupConfig.app_name.slice(1);
+
+  const demoAppTemplate = readTemplate("TemplateApplication")
     .replace("{{ApplicationDirectory}}", APPLICATION_DIR)
-    .replace(
-      /{{AppName}}/g,
-      setupConfig.app_name.charAt(0).toUpperCase() +
-        setupConfig.app_name.slice(1)
-    );
+    .replace(/{{AppName}}/g, appNameCapitalized);
+
+  const webConfigTemplate = readTemplate("WebConfig").replace(
+    "{{ApplicationDirectory}}",
+    APPLICATION_DIR
+  );
 
   fs.mkdirSync(APPLICATION_FILES_DIR, { recursive: true });
-  const demoAppOutputPath = path.join(
-    APPLICATION_FILES_DIR,
-    "DemoApplication.java"
-  );
-  fs.writeFileSync(demoAppOutputPath, demoAppTemplate, "utf8");
-  console.log(`Generated: ${demoAppOutputPath}`);
+
+  writeOutput("DemoApplication.java", demoAppTemplate);
+  writeOutput("WebConfig.java", webConfigTemplate);
 }

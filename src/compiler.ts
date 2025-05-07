@@ -7,6 +7,9 @@ import { compileRepositories } from "./compiler/repository_compiler";
 import { cleanup } from "./cleanup_compiler";
 import { compileService } from "./compiler/service_compiler";
 import { compileController } from "./compiler/controller_compiler";
+import { compileNavbar } from "./compiler/navbar_compiler";
+import { setupFrontend } from "./compiler/setup_frontend_compiler";
+import { compilePages } from "./compiler/page_compiler";
 
 // Initialize global paths
 initializePaths(path.join(__dirname, ".."));
@@ -16,22 +19,19 @@ cleanup();
 
 // Read and parse input.json
 const inputData = JSON.parse(fs.readFileSync(INPUT_JSON_PATH, "utf8"));
+
 // Separate setup and model objects
 const setupObject = inputData.find((obj: any) => obj.object === "Setup");
-// Filter out the "Setup" config object
 const modelObjects = inputData.filter((obj: any) => obj.object !== "Setup");
 
-// Call the setup_compiler
+// === Backend Compilation ===
 compileSetup(setupObject);
-// Call the model_compiler
 compileModels(modelObjects);
-// model_compiler
 compileRepositories(modelObjects);
-
 compileService(modelObjects);
-
 compileController(modelObjects);
 
-// repository_compiler
-// service_compiler
-// controller_compiler
+// === Frontend Compilation ===
+setupFrontend(); // Copies all template files into /frontend
+compileNavbar(modelObjects); // Generates the navbar using model object names
+compilePages(inputData); // Compile pages

@@ -8,13 +8,18 @@ export let APPLICATION_DIR: string;
 export let APPLICATION_FILES_DIR: string;
 export let RESOURCES_FILES_DIR: string;
 export let TEST_FILES_DIR: string;
+export let FRONTEND_TEMPLATE_DIR: string;
+export let FRONTEND_OUTPUT_DIR: string;
+
 
 export function initializePaths(baseDir: string) {
   ROOT_DIR = baseDir;
   INPUT_JSON_PATH = `${ROOT_DIR}/input.json`;
   TEMPLATE_DIR = `${ROOT_DIR}/javaclass`;
-  OUTPUT_DIR = `${ROOT_DIR}/output`;
+  OUTPUT_DIR = `${ROOT_DIR}/backend`;
   RESOURCES_FILES_DIR = `${OUTPUT_DIR}/src/main/resources`;
+  FRONTEND_TEMPLATE_DIR = `${ROOT_DIR}/frontend_template`;
+  FRONTEND_OUTPUT_DIR = `${ROOT_DIR}/frontend`;
 }
 
 export function setApplicationName(appName: string) {
